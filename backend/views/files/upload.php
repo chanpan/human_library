@@ -35,13 +35,13 @@
     }).on('filebatchuploadcomplete', function (event, data, previewId, index) {
           let result = {message:'Upload success', status:'success'};
           <?= \appxq\sdii\helpers\SDNoty::show('result.message', 'result.status') ?>
-          $(document).find('#modal_update_files').modal('hide');    
+          height_modal();
           $('.btnClose').prop('disabled', false);
            
     }).on('filebatchuploaderror', function (event, data, previewId, index) {
           let result = {message:'Upload error', status:'error'};
           <?= \appxq\sdii\helpers\SDNoty::show('result.message', 'result.status') ?>
-          $(document).find('#modal_update_folder').modal('hide');    
+          height_modal();
           $('.btnClose').prop('disabled', false);
     });
     $(document).on('hide.bs.modal','#modal_update_files', function () {
@@ -50,7 +50,10 @@
       },1000);
     //Do stuff here
    }); 
-    
+   
+   height_modal = function(){
+       $(document).find('#modal_update_folder').modal('hide');    
+   }
 </script>
 <?php \richardfan\widget\JSRegister::end();?>
 

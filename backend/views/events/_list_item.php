@@ -7,11 +7,14 @@ $user_id = \backend\classes\CNUser::get_user_id();
 ?>
 <div class="row" style="margin-top:10px;">
     <a href="<?= Url::to(["/events/view?id={$model->id}"])?>" style="color:#000;">
-        <div class="col-md-4 col-xs-4 col-xs-4">
+        <div class="col-md-2 col-xs-2 col-xs-2 text-center">
             <?php
             if ($model->file) {
                 $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
-                echo Html::img("{$url}/files/{$model->file}", ['class' => 'img img-responsive']);
+                echo Html::img("{$url}/files/{$model->file}", [
+                    'class' => 'img img-responsive',
+                    'style'=>'width:100px;margin:0 auto'
+                    ]);
             }
             ?>  
         </div>

@@ -37,7 +37,7 @@ class FilesController extends \yii\web\Controller {
             $event_id = \Yii::$app->request->post('event_id');
             foreach ($files as $k => $file) {
                 $new_file_name = date('Ymd_His') . '_' . rand(10, 1000);
-                $model->id = time();
+                $model->id = time().rand(10, 1000);
                 $model->file_name = "{$new_file_name}.{$file->extension}";
                 $model->file_name_origin = $file->name;
                 $model->forder = $this->getMaxForder();
