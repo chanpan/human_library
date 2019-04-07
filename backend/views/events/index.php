@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
+    <p class="text-left">
         <?= Html::a("<i class='glyphicon glyphicon-plus'></i>  เพิ่มกิจกรรม", ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Events */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'กิจกรรม', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $btn_upload_file = 'cn_btn_upload_file';
 $modal_update = 'modal_update_files';
@@ -15,7 +15,7 @@ $url_create_file = \yii\helpers\Url::to(["/files/upload?event_id={$model->id}"])
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="events-view">
-    <a href="#" id="btn-go-back">ย้อนกลับ</a>
+    <a href="#" id="btn-go-back" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i> ย้อนกลับ</a>
     <h1><?= Html::encode($this->title) ?></h1>
     
     <div class="row">

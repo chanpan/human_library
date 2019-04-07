@@ -22,7 +22,7 @@ use Yii;
  */
 class UserForm extends \yii\db\ActiveRecord
 {
-    public $role;
+    public $role, $password;
     /**
      * {@inheritdoc}
      */
@@ -38,7 +38,7 @@ class UserForm extends \yii\db\ActiveRecord
     {
         return [
             //[['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
-            [['role'],'required'],
+            [['role','password'],'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],

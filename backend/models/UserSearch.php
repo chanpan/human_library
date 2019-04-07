@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\UserForm;
+use backend\models\User;
 
 /**
- * UserSearch represents the model behind the search form of `backend\models\UserForm`.
+ * UserSearch represents the model behind the search form of `backend\models\User`.
  */
-class UserSearch extends UserForm
+class UserSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class UserSearch extends UserForm
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'firstname', 'lastname', 'tel'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at', 'role'], 'integer'],
+            [['username', 'password', 'email', 'firstname', 'lastname', 'tel'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UserSearch extends UserForm
      */
     public function search($params)
     {
-        $query = UserForm::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -62,12 +62,11 @@ class UserSearch extends UserForm
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'role' => $this->role,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'firstname', $this->firstname])
             ->andFilterWhere(['like', 'lastname', $this->lastname])

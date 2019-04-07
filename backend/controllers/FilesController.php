@@ -62,5 +62,19 @@ class FilesController extends \yii\web\Controller {
                     'event_id' => $event_id
         ]);
     }
+    
+    public function actionDelete() {
+        $path = Yii::getAlias('@storage') . "/web/files/";
+        $id = \Yii::$app->request->post('id', '');
+        //return \yii\helpers\Json::encode(['id'=>$id]);
+        $model = \backend\models\Files::findOne($id);
+        if($model->delete()){
+            @unlink("{$path}/{$model->file_name}");
+            return \cpn\chanpan\classes\CNMessage::getSuccess('Success');
+        }else{
+            return \cpn\chanpan\classes\CNMessage::getError("Error");
+        }
+        
+    }
 
 }

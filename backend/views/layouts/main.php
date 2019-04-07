@@ -39,11 +39,19 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
         ['label' => 'ผู้ใช้', 'url' => ['/user/index']],
-        ['label' => 'ข้อมูลทั่วไปเป็น Dropdown ข้อมูลผู้จัดทำ', 'url' => ['/site/index']],
-        ['label' => 'ภาพกิจกรรม', 'url' => ['/events/index']],
-        ['label' => 'วีดีโอ', 'url' => ['/user/index']],
+        ['label' => 'ข่าวประชาสัมพันธ์', 'url' => ['/advertisement/index']],
+        ['label' => 'การบรรยาย', 'url' => ['/book/index']],
+        ['label' => 'ภาพ/วีดีโอกิจกรรม', 'url' => ['/events/index']],
+        [
+            'label' => 'ข้อมูลทั่วไป',
+            'items' => [
+                 ['label' => 'ข้อมูลผู้จัดทำ', 'url' => ['/info/index']] 
+            ],
+        ],
+        ['label' => 'แบบประเมิน', 'url' => ['/assessment-form/index']],
+         
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

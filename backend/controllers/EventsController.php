@@ -68,8 +68,8 @@ class EventsController extends Controller {
             $file = \yii\web\UploadedFile::getInstance($model, 'file');
             $model->id = time();
             $model->rstat = 1;
-            $model->create_at = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
-            $model->update_at = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
+            $model->create_at = \backend\classes\CNUser::get_user_id();
+            $model->update_at = \backend\classes\CNUser::get_user_id();;
             $model->create_date = date('Y-m-d H:i:s');
             $path = \Yii::getAlias('@storage') . '/web/files';
             $new_file_name = time() . '.' . $file->extension;
