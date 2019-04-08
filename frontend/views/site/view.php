@@ -4,3 +4,24 @@ use yii\helpers\Url;
 $this->title = Yii::$app->name;
 $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
 ?>
+<div>
+    <a href="<?= Url::to(['/site/index'])?>" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i> ย้อนกลับ</a>
+</div>
+<div class="media view-book" > 
+    <div class="media-left"> 
+        <a href="#"> 
+            <img alt="64x64" class="media-object img-circle" data-src="holder.js/64x64" 
+                 src="<?= "{$url}/files/{$model->user_image}" ?>" data-holder-rendered="true" style="width: 100px; height: 100px;border: 3px solid #009688;"> 
+        </a> 
+    </div> 
+    <div class="media-body"> 
+        <h3 class="media-heading"><?= isset($model->title) ? $model->title : ''; ?></h3> 
+        <h4 style="margin-top: 3px;"> เรื่อง : เล่าขานตำนานเมืองสกลนคร </h4>
+        <h4 style="margin-top: 3px;">ชื่อผู้บรรยาย <?= $model->user_name; ?></h4>
+        <h4 style="margin-top: 3px;">เวลาจัดการการบรรยาย <?= isset($model->date) ? appxq\sdii\utils\SDdate::mysql2phpThDateTimeFull($model->date) : ''; ?></h4>
+    </div> 
+</div>
+<hr/>
+<div>
+    <?= isset($model->detail)?$model->detail:''?>
+</div>

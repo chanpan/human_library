@@ -3,10 +3,6 @@
 use yii\helpers\Url;
 $this->title = Yii::$app->name;
 $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
-//                        return Html::img("{$url}/files/{$model->user_image}", [
-//                            'class' => 'img img-responsive',
-//                            'style'=>'width:50px;'
-//                            ]);
 ?>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
