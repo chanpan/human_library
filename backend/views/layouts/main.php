@@ -53,13 +53,13 @@ AppAsset::register($this);
         ['label' => 'แบบประเมิน', 'url' => ['/assessment-form/index']],
          
     ];
-    if (Yii::$app->user->isGuest) {
+    if (!isset(\Yii::$app->session['user_id'])) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->firstname .' '.Yii::$app->user->identity->lastname. ')',
+                'Logout (' . backend\classes\CNUser::get_fullname_by_user_id(\Yii::$app->session['user_id']). ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

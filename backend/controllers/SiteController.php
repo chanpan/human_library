@@ -12,52 +12,7 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+    
     public function actionIndex()
     {
        // \appxq\sdii\utils\VarDumper::dump(\Yii::$app->authManager->getRolesByUser(1));
@@ -71,18 +26,28 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (isset(Yii::$app->session['user_id'])) {
             return $this->goHome();
         }
-
+        $error = '';
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
+        if (Yii::$app->request->post()) {
+            $data = Yii::$app->request->post('LoginForm');
+            $username = $data['username'];
+            $password = $data['password'];
 
+            $user = \backend\models\User::find()->where('username=:username AND password=:password',[
+                ':username'=>$username,
+                ':password'=>$password
+            ])->one();
+            if($user){
+                Yii::$app->session['user_id']=$user['id'];
+                return $this->goHome();
+            }
+        } else {
             return $this->render('login', [
                 'model' => $model,
+                'error'=>$error
             ]);
         }
     }
@@ -94,8 +59,8 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        unset(Yii::$app->session['user_id']);
 
-        return $this->goHome();
+        return $this->redirect(['/site/login']);
     }
 }
