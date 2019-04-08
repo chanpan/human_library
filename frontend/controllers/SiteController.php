@@ -107,17 +107,18 @@ public function actionView(){
      */
     public function actionSignup()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+        $model= new \backend\models\User();
+        if($model->load(Yii::$app->request->post())){
+            $model->role = \appxq\sdii\utils\SDUtility::array2String(["3"]);
+            if($model->save()){
+                \Yii::$app->session->setFlash('success', "เพิ่มข้อมูลผู้ใช้ {$model->firstname} {$model->lastname} สำเร็จ");
+                return $this->redirect(['/site/login']);
+            }else{
+                \Yii::$app->session->setFlash('success', "เพิ่มข้อมูลผู้ใช้ไม่สำเร็จ");
             }
         }
-
-        return $this->render('signup', [
-            'model' => $model,
+        return $this->render('signup',[
+            'model'=>$model
         ]);
     }
 

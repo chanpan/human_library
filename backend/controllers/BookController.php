@@ -14,25 +14,7 @@ use yii\filters\VerbFilter;
  */
 class BookController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Lists all Book models.
-     * @return mixed
-     */
+    
     public function actionIndex()
     {
         $searchModel = new BookSearch();
