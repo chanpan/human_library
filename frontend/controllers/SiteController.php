@@ -26,7 +26,12 @@ class SiteController extends Controller
             'model'=>$model
         ]);
     }
-
+public function actionView(){
+    $id = Yii::$app->request->get('id', '');
+    
+    $model = \backend\models\Book::findOne($id);
+    return $this->render('view',['model'=>$model]);
+}
     /**
      * Logs in a user.
      *

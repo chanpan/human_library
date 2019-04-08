@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-
+use yii\helpers\Url;
 $this->title = Yii::$app->name;
 $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
 //                        return Html::img("{$url}/files/{$model->user_image}", [
@@ -13,7 +13,7 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
         <?php if ($model): ?>
             <?php foreach ($model as $k => $v): ?>
                 <?php if ($k % 2 == 0): ?>
-                    <div class="media"> 
+                    <div class="media view-book" data-url="<?= Url::to(["/site/view?id={$v->id}"])?>"> 
                         <div class="media-left"> 
                             <a href="#"> 
                                 <img alt="64x64" class="media-object img-circle" data-src="holder.js/64x64" 
@@ -29,7 +29,7 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
                     </div>
                     <hr/>
                 <?php else: ?>
-                    <div class="media"> 
+                    <div class="media view-book" data-url="<?= Url::to(["/site/view?id={$v->id}"])?>"> 
                         <div class="media-body"> 
                             <h3 class="media-heading"><?= isset($v->title) ? $v->title : ''; ?></h3> 
                             <h4 style="margin-top: 3px;"> เรื่อง : เล่าขานตำนานเมืองสกลนคร </h4>
@@ -52,6 +52,16 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
 
     </div>
 </div>
+<?php richardfan\widget\JSRegister::begin();?>
+<script>
+   $('.view-book').on('click', function(){
+       let url = $(this).attr('data-url');
+       location.href = url;
+       return false; 
+   });
+</script>
+<?php richardfan\widget\JSRegister::end();?>
+
 <?php \appxq\sdii\widgets\CSSRegister::begin();?>
 <style>
     
