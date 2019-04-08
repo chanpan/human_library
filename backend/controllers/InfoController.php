@@ -14,27 +14,12 @@ use yii\filters\VerbFilter;
  */
 class InfoController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Lists all Info models.
-     * @return mixed
-     */
+     
     public function actionIndex()
     {
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
         $searchModel = new InfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +37,9 @@ class InfoController extends Controller
      */
     public function actionView($id)
     {
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,6 +52,9 @@ class InfoController extends Controller
      */
     public function actionCreate()
     {
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
         $model = new Info();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -84,6 +75,9 @@ class InfoController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -104,6 +98,9 @@ class InfoController extends Controller
      */
     public function actionDelete($id)
     {
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -118,6 +115,9 @@ class InfoController extends Controller
      */
     protected function findModel($id)
     {
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
         if (($model = Info::findOne($id)) !== null) {
             return $model;
         }

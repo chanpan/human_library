@@ -15,4 +15,33 @@ class CNUser {
         return $id;
         //return isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
     }
+    public static function can_admin(){
+        $user_id = self::get_user_id();
+        $user = \backend\models\User::findOne($user_id);
+        $role = \appxq\sdii\utils\SDUtility::string2Array($user->role);
+        if(in_array(1, $role)){
+            return true;
+        } 
+        return false;
+    }
+    public static function can_manager(){
+        $user_id = self::get_user_id();
+        $user = \backend\models\User::findOne($user_id);
+        $role = \appxq\sdii\utils\SDUtility::string2Array($user->role);
+        
+        if(in_array(2, $role)){
+            
+            return true;
+        } 
+        return false;
+    }
+    public static function can_member(){
+        $user_id = self::get_user_id();
+        $user = \backend\models\User::findOne($user_id);
+        $role = \appxq\sdii\utils\SDUtility::string2Array($user->role);
+        if(in_array(3, $role)){
+            return true;
+        } 
+        return false;
+    }
 }

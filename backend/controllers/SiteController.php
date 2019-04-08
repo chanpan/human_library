@@ -15,8 +15,13 @@ class SiteController extends Controller
     
     public function actionIndex()
     {
-       // \appxq\sdii\utils\VarDumper::dump(\Yii::$app->authManager->getRolesByUser(1));
-        return $this->render('index');
+       $roles = \backend\classes\CNUser::can_admin(Yii::$app->session['user_id']);
+       //\appxq\sdii\utils\VarDumper::dump($roles);
+       return $this->render('index');
+    }
+    public function actionAccessDenine()
+    {
+       return $this->render('access-denine');
     }
 
     /**

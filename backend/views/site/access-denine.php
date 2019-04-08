@@ -1,0 +1,1 @@
+<h2 class="alert alert-danger">คุณไม่มีสิทธิ์เข้าหน้านี้</h2>
