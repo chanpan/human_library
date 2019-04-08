@@ -37,17 +37,16 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Human Library', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'กิจกรรม', 'url' => ['/site/event']],
+        //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+    if (!isset(\Yii::$app->session['user_id'])) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Logout (' . backend\classes\CNUser::get_fullname_by_user_id(\Yii::$app->session['user_id']). ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

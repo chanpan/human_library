@@ -4,8 +4,18 @@ use yii\helpers\Url;
 $this->title = Yii::$app->name;
 $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
 ?>
+
 <div class="row">
+    
     <div class="col-md-8 col-md-offset-2">
+        <?php yii\widgets\ActiveForm::begin(['method'=>'get']);?>
+            <div class="input-group"> 
+                <input class="form-control" name="search" placeholder="ค้นหาการบรรยายได้"> 
+                <div class="input-group-btn"> 
+                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> ค้นหา</button> 
+                </div> 
+            </div> 
+        <?php yii\widgets\ActiveForm::end();?>
         <?php if ($model): ?>
             <?php foreach ($model as $k => $v): ?>
                 <?php if ($k % 2 == 0): ?>

@@ -44,12 +44,12 @@ class SiteController extends Controller
                 Yii::$app->session['user_id']=$user['id'];
                 return $this->goHome();
             }
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-                'error'=>$error
-            ]);
-        }
+            $error = 'กรุณาตรวจสอบ Username หรือ Password';
+        }  
+        return $this->render('login', [
+                    'model' => $model,
+                    'error' => $error
+        ]);
     }
 
     /**

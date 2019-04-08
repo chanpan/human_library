@@ -21,7 +21,15 @@ class SiteController extends Controller
       
     public function actionIndex()
     {
-        $model =  \backend\models\Book::find()->all();
+        $search = Yii::$app->request->get('search', '');
+        
+        $model =  \backend\models\Book::find();
+        if($search != ''){
+            $model = $model->where('title LIKE :title OR detail LIKE :detail', [":title"=>"%{$search}%", ":detail"=>"%{$search}%"]);
+        } 
+        $model = $model->all();
+        //\appxq\sdii\utils\VarDumper::dump($model);
+        
         return $this->render('index', [
             'model'=>$model
         ]);
@@ -32,6 +40,20 @@ public function actionView(){
     $model = \backend\models\Book::findOne($id);
     return $this->render('view',['model'=>$model]);
 }
+public function actionEvent(){
+        $search = Yii::$app->request->get('search', '');
+        $model = \backend\models\Events::find();
+        if ($search != '') {
+            $model = $model->where('title LIKE :title OR detail LIKE :detail', [":title" => "%{$search}%", ":detail" => "%{$search}%"]);
+        }
+        $model = $model->all();
+        return $this->render('event', ['model' => $model]);
+    }
+public function actionEventDetail(){
+    $id = Yii::$app->request->get('id', '');
+    $model = \backend\models\Events::findOne($id);
+    return $this->render('event-detail',['model'=>$model]);
+}    
     /**
      * Logs in a user.
      *
@@ -39,20 +61,31 @@ public function actionView(){
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (isset(Yii::$app->session['user_id'])) {
             return $this->goHome();
         }
-
+        $error = '';
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
+        if (Yii::$app->request->post()) {
+            $data = Yii::$app->request->post('LoginForm');
+            $username = $data['username'];
+            $password = $data['password'];
 
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+            $user = \backend\models\User::find()->where('username=:username AND password=:password',[
+                ':username'=>$username,
+                ':password'=>$password
+            ])->one();
+            if($user){
+                Yii::$app->session['user_id']=$user['id'];
+                return $this->goHome();
+            }
+            $error = 'กรุณาตรวจสอบ Username หรือ Password';
+            
+        }  
+        return $this->render('login', [
+                    'model' => $model,
+                    'error' => $error
+        ]);
     }
 
     /**
