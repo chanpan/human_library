@@ -30,7 +30,7 @@ class AssessmentForm extends \yii\db\ActiveRecord
     {
         return [
             [['explanation'], 'string'],
-            [['create_date'], 'safe'],
+            [['create_date','detail'], 'safe'],
             [['create_by'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];

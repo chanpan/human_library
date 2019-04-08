@@ -6,26 +6,31 @@ $storage = isset(Yii::$app->params['storageUrl']) ? Yii::$app->params['storageUr
 <h4><?= isset($model->title) ? $model->title : '' ?></h4>
 <div id="aniimated-thumbnials">
     <h3>รูปภาพ</h3>
-    <?php foreach ($files as $k => $v): ?>
-    <a href="<?= $storage . '/files/' . $v['file_name'] ?>">
-        <img src="<?= $storage . '/files/' . $v['file_name'] ?>" style="display: none;"/>
-        <div class="col-md-2 folder_dynamic" style="margin-bottom:15px;" data-id="<?= $v['id'] ?>" id="folder_dynamic_<?= $v['id'] ?>">
-            <div class="row folder_dynamic_items"  data-id="<?= $v['id'] ?>" style="padding:5px;">
-                <?php
+    <?php if($files):?>
+        <?php foreach ($files as $k => $v): ?>
+    <?php
                 $file_type_image = ['jpeg', 'jpg', 'gif', 'png'];
                 $file_type_video = ['mp4', 'avi', 'gif', 'mov'];
                 $file_type = explode('.', $v['file_name']);
                 ?>
-                <?php if (in_array(end($file_type), $file_type_image)): ?>
+   <?php if (in_array(end($file_type), $file_type_image)): ?> 
+    <a href="<?= $storage . '/files/' . $v['file_name'] ?>">
+        <img src="<?= $storage . '/files/' . $v['file_name'] ?>" style="display: none;"/>
+        <div class="col-md-2 folder_dynamic" style="margin-bottom:15px;" data-id="<?= $v['id'] ?>" id="folder_dynamic_<?= $v['id'] ?>">
+            <div class="row folder_dynamic_items"  data-id="<?= $v['id'] ?>" style="padding:5px;">
+                
+                
                     <div style="width:100%;height:150px;background:url(<?= $storage . '/files/' . $v['file_name'] ?>) center;  background-size: cover;"></div>
-                <?php elseif (in_array(end($file_type), $file_type_video)): ?>
+                 
                     
-                <?php endif; ?>    
+                
 
             </div>
         </div>
     </a>
+    <?php endif; ?>    
     <?php endforeach; ?>
+    <?php endif; ?>
 </div>
 
 <div class="clearfix">
@@ -43,15 +48,12 @@ $storage = isset(Yii::$app->params['storageUrl']) ? Yii::$app->params['storageUr
         <a href="<?= $storage . '/files/' . $v['file_name'] ?>">
             <div class="col-md-2 folder_dynamic" style="margin-bottom:15px;" data-id="<?= $v['id'] ?>" id="folder_dynamic_<?= $v['id'] ?>">
                 <div class="row folder_dynamic_items"  data-id="<?= $v['id'] ?>" style="padding:5px;">
-                    
-
-
-                        <video style="width:100%;height:150px;" controls>
+                    <a target="_BLANK" href="<?= \yii\helpers\Url::to(['/site/video-detail?id='.$v['id']])?>">
+                        <video style="width:100%;height:150px;" >
                             <source src="<?= $storage . '/files/' . $v['file_name'] ?>" type="video/<?= end($file_type) ?>">
                             Your browser does not support HTML5 video.
                         </video>
-
-
+                    </a>    
                 </div>
             </div>
         </a>

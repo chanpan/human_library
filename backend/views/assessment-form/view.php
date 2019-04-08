@@ -52,5 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'create_by',
         ],
     ]) ?>
+    
+    <?= $model->detail; ?>
 
 </div>

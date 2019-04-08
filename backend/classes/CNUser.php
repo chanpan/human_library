@@ -11,7 +11,8 @@ class CNUser {
     }
     public static function get_user_id(){
         $id = isset(\Yii::$app->session['user_id'])?\Yii::$app->session['user_id']:'1';
+        //\appxq\sdii\utils\VarDumper::dump($id);
         return $id;
-        return isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
+        //return isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
     }
 }

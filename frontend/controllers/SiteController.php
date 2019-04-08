@@ -21,8 +21,7 @@ class SiteController extends Controller
       
     public function actionIndex()
     {
-        $search = Yii::$app->request->get('search', '');
-        
+        $search = Yii::$app->request->get('search', ''); 
         $model =  \backend\models\Book::find();
         if($search != ''){
             $model = $model->where('title LIKE :title OR detail LIKE :detail', [":title"=>"%{$search}%", ":detail"=>"%{$search}%"]);
@@ -30,6 +29,7 @@ class SiteController extends Controller
         $model = $model->all();
         //\appxq\sdii\utils\VarDumper::dump($model);
         
+        $this->save_view_count();
         return $this->render('index', [
             'model'=>$model
         ]);
@@ -96,7 +96,7 @@ public function actionEventDetail(){
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        unset(Yii::$app->session['user_id']);
 
         return $this->goHome();
     }
@@ -204,4 +204,54 @@ public function actionEventDetail(){
             'model' => $model,
         ]);
     }
+    
+    public function actionRegisterForm(){
+        //register-form
+        $user_id = \backend\classes\CNUser::get_user_id();
+        $model = \common\models\RegisterForm::find()->where(['user_id'=>$user_id])->one();
+        $status = true;
+        if(!$model){
+            $status = false;
+            $model = new \common\models\RegisterForm();
+        }
+        if($model->load(Yii::$app->request->post())){
+            $model->user_id = \backend\classes\CNUser::get_user_id();
+            $model->create_date = date('Y-m-d H:i:s');
+            if($model->save()){
+               \Yii::$app->session->setFlash('success', 'ลงทะเบียนสำเร็จ'); 
+            }
+        }
+        return $this->render('register-form', [
+            'model' => $model,
+            'user_id'=>$user_id,
+            'status'=>$status
+        ]);
+    }
+    public function actionAssessmentForm(){
+        $id = Yii::$app->request->get('id', '');
+        $model = \common\models\AssessmentForm::find()->all();
+        if($id){
+            $model = \common\models\AssessmentForm::findOne($id);
+        }
+        return $this->render('assessment-form', [
+            'model'=>$model,
+            'id'=>$id
+        ]);
+    }
+    
+    public function save_view_count(){
+        $model = \common\models\ViewCount::findOne(1);
+        $model->count += 1;
+        $model->save();
+    }
+    public function actionVideoDetail(){
+        $id = Yii::$app->request->get('id', '');
+        $model = \backend\models\Files::findOne($id);
+        return $this->render('video-detail', [
+            'model'=>$model,
+        ]);
+    }
+    
+    //
+    //
 }

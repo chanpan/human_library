@@ -43,6 +43,8 @@ AppAsset::register($this);
     if (!isset(\Yii::$app->session['user_id'])) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'ลงทะเบียนเข้าร่วมกิจกรรม', 'url' => ['/site/register-form']];
+        $menuItems[] = ['label' => 'แบบประเมินผลออนไลน์การเข้าร่วมกิจกรรม', 'url' => ['/site/assessment-form']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -70,9 +72,16 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        
+        <h3>จำนวนการเข้าชมเว็บไซต์
+            <?php 
+                $count = \common\models\ViewCount::findOne(1);
+                echo $count->count;
+            ?>
+            ครั้ง
+        </h3> 
+         
+        
     </div>
 </footer>
 
