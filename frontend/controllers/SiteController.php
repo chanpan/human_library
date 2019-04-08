@@ -52,7 +52,8 @@ public function actionEvent(){
 public function actionEventDetail(){
     $id = Yii::$app->request->get('id', '');
     $model = \backend\models\Events::findOne($id);
-    return $this->render('event-detail',['model'=>$model]);
+    $files = \backend\models\Files::find()->where(['event_id'=>$id])->all();
+    return $this->render('event-detail',['model'=>$model,'files'=>$files]);
 }    
     /**
      * Logs in a user.

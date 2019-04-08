@@ -36,5 +36,6 @@ class JLightBox extends \yii\base\Widget{
         \cpn\chanpan\assets\jlightbox\JLightBoxAsset::register($view);
         $js="$('#lightgallery').lightGallery();";
         $view->registerJs($js);
+       
     }
 }
