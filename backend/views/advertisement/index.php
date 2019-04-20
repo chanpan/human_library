@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
+                'contentOptions'=>['style'=>'width:100px;text-align:center;margin:0 auto'],
                 'format'=>'raw',
                 'attribute'=>'photo',
                 'value'=>function($model){
@@ -32,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
                         return Html::img("{$url}/files/{$model->photo}", [
                             'class' => 'img img-responsive',
-                            'style'=>'width:50px;'
+                            'style'=>'width:50px;margin:0 auto;'
                             ]);
                     }
                 }

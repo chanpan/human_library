@@ -38,6 +38,7 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Human Library', 'url' => ['/site/index']],
         ['label' => 'กิจกรรม', 'url' => ['/site/event']],
+        ['label' => 'ข่าวประกาศ', 'url' => ['/site/news']],
         //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (!isset(\Yii::$app->session['user_id'])) {

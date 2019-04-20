@@ -251,7 +251,24 @@ public function actionEventDetail(){
             'model'=>$model,
         ]);
     }
-    
+    public function actionNews(){
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query'=> \backend\models\Advertisement::find()->orderBy(['id'=>SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $this->render('news',[
+            'dataProvider'=>$dataProvider
+        ]);
+    }
+    public function actionNewsDetail(){
+        $id = Yii::$app->request->get('id');
+        $model = \backend\models\Advertisement::findOne($id);
+        return $this->render('news-detail',[
+            'model'=>$model
+        ]);
+    }
     //
     //
 }
