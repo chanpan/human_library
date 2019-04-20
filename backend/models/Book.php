@@ -56,6 +56,7 @@ class Book extends \yii\db\ActiveRecord
             'create_by' => 'สร้างโดย',
             'create_date' => 'สร้างเมื่อ',
             'forder' => 'ลำดับที่',
+            'location'=>'สถานที่จัดงาน'
         ];
     }
 }

@@ -33,6 +33,7 @@ use yii\widgets\ActiveForm;
                 'dateFormat' => 'yyyy-MM-dd',
             ]) ?>
             <?= $form->field($model, 'forder')->textInput(['type'=>'number']) ?>
+        <?= $form->field($model, 'location')->textarea() ?>
             <div class="form-group">
                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
             </div>
