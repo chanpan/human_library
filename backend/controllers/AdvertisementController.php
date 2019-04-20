@@ -38,6 +38,7 @@ class AdvertisementController extends Controller
      */
     public function actionView($id)
     {
+        return $this->redirect(['index']);
         if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
             return $this->redirect(['/site/access-denine']);
         }
@@ -59,13 +60,20 @@ class AdvertisementController extends Controller
         $model = new Advertisement();
 
         if ($model->load(Yii::$app->request->post())) {
+            $file = \yii\web\UploadedFile::getInstance($model, 'photo');
+            
+            if($file){
+                $path = \Yii::getAlias('@storage') . '/web/files';
+                $new_file_name = time() . '.' . $file->extension;
+                $file->saveAs("{$path}/{$new_file_name}");
+                $model->photo = $new_file_name;
+            }
             $model->create_by = \backend\classes\CNUser::get_user_id();
             $model->create_date = date('Y-m-d H:i:s');
             if($model->save()){
-                \Yii::$app->session->setFlash('success', "เพิ่มข่าวประชาสัมพันธ์ {$model->title} สำเร็จ");
-                return $this->redirect(['index']);
-        }
-
+                    \Yii::$app->session->setFlash('success', "เพิ่มข่าวประชาสัมพันธ์ {$model->title} สำเร็จ");
+                    return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -86,10 +94,25 @@ class AdvertisementController extends Controller
             return $this->redirect(['/site/access-denine']);
         }
         $model = $this->findModel($id);
-
+        \Yii::$app->session['photo']=$model->photo; //session เก็บค่า file
         if ($model->load(Yii::$app->request->post())) {
             $model->create_by = \backend\classes\CNUser::get_user_id();
             $model->create_date = date('Y-m-d H:i:s');
+            
+            $file = \yii\web\UploadedFile::getInstance($model, 'photo');
+            if($file){
+                $path = \Yii::getAlias('@storage') . '/web/files';
+                if(\Yii::$app->session['file'] != ''){
+                    $file_name = \Yii::$app->session['user_image'];
+                    @unlink("{$path}/{$file_name}");
+                }
+                $new_file_name = time() . '.' . $file->extension;
+                $file->saveAs("{$path}/{$new_file_name}");
+                $model->photo = $new_file_name;
+            }else{
+                $model->photo = \Yii::$app->session['user_image'];
+            }
+            
             if($model->save()){
                 \Yii::$app->session->setFlash('success', "แก้ไขข่าวประชาสัมพันธ์ {$model->title} สำเร็จ");
                 return $this->redirect(['index']);

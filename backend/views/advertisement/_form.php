@@ -12,9 +12,16 @@ use yii\widgets\ActiveForm;
     <div class="col-md-6">
 <div class="advertisement-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-
+    <?php
+    //echo $model->file;
+    if ($model->photo) {
+        $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
+        echo Html::img("{$url}/files/{$model->photo}", ['class' => 'img img-responsive', 'style' => 'width:100px;']);
+    }
+    ?>
+    <?= $form->field($model, 'photo')->fileInput() ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'detail')->widget(dosamigos\ckeditor\CKEditor::className(), [

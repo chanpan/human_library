@@ -24,7 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'format'=>'raw',
+                'attribute'=>'photo',
+                'value'=>function($model){
+                    if ($model->photo) {
+                        $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
+                        return Html::img("{$url}/files/{$model->photo}", [
+                            'class' => 'img img-responsive',
+                            'style'=>'width:50px;'
+                            ]);
+                    }
+                }
+            ],
             //'id',
             'title',
             //'detail:ntext',
