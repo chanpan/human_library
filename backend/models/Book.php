@@ -35,7 +35,7 @@ class Book extends \yii\db\ActiveRecord
         return [
             [['title','detail','user_name'], 'required'],
             [['detail'], 'string'],
-            [['date', 'create_date'], 'safe'],
+            [['date', 'create_date','time_start','time_stop','location'], 'safe'],
             [['create_by', 'forder'], 'integer'],
             [['title', 'user_name', 'user_image'], 'string', 'max' => 255],
         ];
@@ -52,7 +52,7 @@ class Book extends \yii\db\ActiveRecord
             'detail' => 'รายละเอียดการบรรยาย',
             'user_name' => 'ชื่อผู้บรรยาย',
             'user_image' => 'รูปภาพผู้บรรยาย',
-            'date' => 'เวลาจัดการการบรรยาย',
+            'date' => 'วันที่จัดการการบรรยาย',
             'create_by' => 'สร้างโดย',
             'create_date' => 'สร้างเมื่อ',
             'forder' => 'ลำดับที่',

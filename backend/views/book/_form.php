@@ -25,6 +25,7 @@ use yii\widgets\ActiveForm;
                     $url = isset(\Yii::$app->params['storageUrl'])?\Yii::$app->params['storageUrl']:'';
                     echo Html::img("{$url}/files/{$model->user_image}", ['class'=>'img img-responsive' , 'style'=>'width:100px;']);
                 }
+                
             ?>
             <?= $form->field($model, 'user_image')->fileInput() ?>
             <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::class, [

@@ -17,7 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'detail')->textarea(['rows' => 6]) ?> 
+    <?= $form->field($model, 'detail')->widget(dosamigos\ckeditor\CKEditor::className(), [
+                    'options' => ['rows' => 6],
+                    'preset' => 'full', //basic,standard,full  
+                    'clientOptions' => [
+                        'filebrowserUploadUrl' => \yii\helpers\Url::to(['/ck-editor/upload']),
+                    ]
+                ]) ?>
     
 
     <div class="form-group">

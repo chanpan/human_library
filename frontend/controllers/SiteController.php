@@ -24,10 +24,10 @@ class SiteController extends Controller
         $search = Yii::$app->request->get('search', ''); 
         $model =  \backend\models\Book::find();
         if($search != ''){
-            $model = $model->where('title LIKE :title OR detail LIKE :detail', [":title"=>"%{$search}%", ":detail"=>"%{$search}%"]);
+            $model = $model->where('title LIKE :title OR detail LIKE :detail',
+                    [":title"=>"%{$search}%", ":detail"=>"%{$search}%"]);
         } 
-        $model = $model->all();
-        //\appxq\sdii\utils\VarDumper::dump($model);
+        $model = $model->all(); 
         
         $this->save_view_count();
         return $this->render('index', [

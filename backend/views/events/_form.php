@@ -14,7 +14,13 @@ use dosamigos\ckeditor\CKEditor;
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
             <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'autofocus'=>true])->hint('ชื่อกิจกรรมต้องไม่เกิน 100 ตัวอักษร') ?>
-            <?= $form->field($model, 'detail')->textarea(['rows'=>'6']) ?>
+            <?= $form->field($model, 'detail')->widget(dosamigos\ckeditor\CKEditor::className(), [
+                    'options' => ['rows' => 6],
+                    'preset' => 'full', //basic,standard,full  
+                    'clientOptions' => [
+                        'filebrowserUploadUrl' => \yii\helpers\Url::to(['/ck-editor/upload']),
+                    ]
+                ]) ?>
             <?= $form->field($model, 'event_type')->hiddenInput()->label(FALSE); ?>
             <?= $form->field($model, 'forder')->textInput() ?>
         
