@@ -8,6 +8,7 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
 <div class="row">
     
     <div class="col-md-8 col-md-offset-2">
+        <?php echo $this->render('_slider')?>
         <?php yii\widgets\ActiveForm::begin(['method'=>'get']);?>
             <div class="input-group"> 
                 <input class="form-control" name="search" placeholder="ค้นหาการบรรยายได้"> 
