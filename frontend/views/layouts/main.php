@@ -42,7 +42,8 @@ AppAsset::register($this);
         //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (!isset(\Yii::$app->session['user_id'])) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'เข้าสู่ระบบ', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'ลงทะเบียน', 'url' => ['/site/signup']];
     } else {
         $menuItems[] = ['label' => 'ลงทะเบียนเข้าร่วมกิจกรรม', 'url' => ['/site/register-form']];
         $menuItems[] = ['label' => 'แบบประเมินผลออนไลน์การเข้าร่วมกิจกรรม', 'url' => ['/site/assessment-form']];
