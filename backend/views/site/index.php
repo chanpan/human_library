@@ -3,25 +3,30 @@
 /* @var $this yii\web\View */
 use yii\helpers\Url;
 $this->title = Yii::$app->name;
+$storage = isset(Yii::$app->params['storageUrl'])?Yii::$app->params['storageUrl']:'';
+ 
 ?>
 <div class="text-center">
-    <h2><?= $this->title; ?></h2>
+    <h1><b><?= $this->title; ?></b></h1>
 </div><hr/>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <div class="col-md-4 text-right">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <button data-url="<?= Url::to(['/user/index'])?>" title="ผู้ใช้" class="add-show-form cn_btn_upload_file main-box"> 
-                <i class="glyphicon glyphicon-user"></i>
+                <img src="<?= "{$storage}/images/user.png"?>"/>
+                <div class="box-text">ผู้ใช้</div>
             </button>
         </div>
-        <div class="col-md-4 text-right">
-            <button data-url="<?= Url::to(['/advertisement/index'])?>" title="ข่าวประชาสัมพันธ์" class="add-show-form cn_btn_upload_file main-box"> 
-                <i class="glyphicon glyphicon-volume-up"></i>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+            <button data-url="<?= Url::to(['/advertisement/index'])?>" title="ข่าวประกาศ" class="add-show-form cn_btn_upload_file main-box"> 
+                <img src="<?= "{$storage}/images/new.png"?>"/>
+                <div class="box-text">ข่าวประกาศ</div>
             </button>
         </div>
-        <div class="col-md-4 text-right">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <button data-url="<?= Url::to(['/book/index'])?>" title="การบรรยาย" class="add-show-form cn_btn_upload_file main-box"> 
-                <i class="glyphicon glyphicon-book"></i>
+                <img src="<?= "{$storage}/images/book.png"?>"/>
+                <div class="box-text">การบรรยาย</div>
             </button>
         </div>
     </div>
@@ -30,19 +35,34 @@ $this->title = Yii::$app->name;
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <div class="col-md-4 text-right">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <button data-url="<?= Url::to(['/events/index'])?>" title="กิจกรรม" class="add-show-form cn_btn_upload_file main-box"> 
-                <i class="glyphicon glyphicon-picture"></i>
+                <img src="<?= "{$storage}/images/slider.png"?>"/>
+                <div class="box-text">ภาพสไลด์</div>
             </button>
         </div>
-        <div class="col-md-4 text-right">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+            <button data-url="<?= Url::to(['/events/index'])?>" title="กิจกรรม" class="add-show-form cn_btn_upload_file main-box"> 
+                <img src="<?= "{$storage}/images/image_and_video.png"?>"/>
+                <div class="box-text">ภาพ/วีดีโอกิจกรรม</div>
+            </button>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
             <button data-url="<?= Url::to(['/info/index'])?>" title="ข้อมูลผู้จัดทำ" class="add-show-form cn_btn_upload_file main-box"> 
-                <i class="glyphicon glyphicon-credit-card"></i>
+                <img src="<?= "{$storage}/images/info.png"?>"/>
+                <div class="box-text">ข้อมูลผู้จัดทำ</div>
             </button>
         </div>
-        <div class="col-md-4 text-right">
-            <button data-url="<?= Url::to(['/assessment-form/index'])?>" title="การบรรยาย" class="add-show-form cn_btn_upload_file main-box"> 
-                <i class="glyphicon glyphicon-align-center"></i>
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+            <button data-url="<?= Url::to(['/assessment-form/index'])?>" title="แบบประเมิน" class="add-show-form cn_btn_upload_file main-box"> 
+                <img src="<?= "{$storage}/images/form.png"?>"/>
+                <div class="box-text">แบบประเมิน</div>
             </button>
         </div>
     </div>
@@ -66,6 +86,14 @@ $this->title = Yii::$app->name;
             border-style: dashed;
             border-radius: 5px;
             font-size: 50pt;
+            background: whitesmoke;
+            transition: .5s ease;
+        }
+        .main-box:hover{
+            background:#d8d8d8;
+        }
+        .box-text{
+            font-size: 18px;font-weight: bold;
         }
 
     ")

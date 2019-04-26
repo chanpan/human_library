@@ -89,7 +89,26 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+<?php $this->registerCss("
+    .navbar-inverse {
+        background-color: #03A9F4 !important;
+        border-color: #03a9f4 !important;
+    }
+    .navbar-inverse .navbar-brand {
+        color: #ffffff !important;
+    }
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
+    .navbar-inverse .btn-link {
+        color: #ffffff;
+    }
+    .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+        color: #fff;
+        background-color: #1987de;
+    }
 
+")?>
 <?php $this->endBody() ?>
 </body>
 </html>
