@@ -43,3 +43,9 @@ phpunit.phar
 /backend/web/robots.txt
 
 /storage/web
+/vendors
+/vendor
+
+/backend/web/assets
+/frontend/web/assets
+/vendor5

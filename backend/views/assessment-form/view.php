@@ -36,17 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'attribute'=>'explanation',
                 'value'=>function($model){
-                    return $model->explanation;
+                    return isset($model->explanation)?$model->explanation:'';
                 }
             ], 
             [
                 'format'=>'raw',
                 'attribute'=>'create_date',
                 'value'=>function($model){
-                    if ($model->create_date) {
-                        return appxq\sdii\utils\SDdate::mysql2phpDateTime($model->create_date);
-                    }
-                    return '';
+                     return isset($model->create_date)?appxq\sdii\utils\SDdate::mysql2phpDate($model->create_date):'';
                 }
             ],  
             'create_by',
