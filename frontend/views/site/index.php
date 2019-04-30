@@ -17,48 +17,64 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
                 </div> 
             </div> 
         <?php yii\widgets\ActiveForm::end();?>
+
         <?php if ($model): ?>
             <?php foreach ($model as $k => $v): ?>
                 <?php if ($k % 2 == 0): ?>
                     <div class="media view-book" data-url="<?= Url::to(["/site/view?id={$v->id}"])?>"> 
                         <div class="media-left"> 
-                            <a href="#"> 
-                                <img alt="64x64" class="media-object img-circle" data-src="holder.js/64x64" 
-                                     src="<?= "{$url}/files/{$v->user_image}" ?>" data-holder-rendered="true" style="width: 100px; height: 100px;border: 3px solid #009688;"> 
-                            </a> 
+				 <?= renderImage($v); ?>
                         </div> 
-                        <div class="media-body"> 
-                            <h3 class="media-heading"><?= isset($v->title) ? $v->title : ''; ?></h3> 
-                            <h4 style="margin-top: 3px;"> เรื่อง : เล่าขานตำนานเมืองสกลนคร </h4>
-                            <h4 style="margin-top: 3px;">ชื่อผู้บรรยาย <?= $v->user_name; ?></h4>
-                            <h4 style="margin-top: 3px;">เวลาจัดการการบรรยาย <?= isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDateTimeFull($v->date) : ''; ?></h4>
-                        </div> 
+			 <div class='media-body'><?= renderMediaBody($v); ?></div>
                     </div>
                     <hr/>
                 <?php else: ?>
                     <div class="media view-book" data-url="<?= Url::to(["/site/view?id={$v->id}"])?>"> 
-                        <div class="media-body"> 
-                            <h3 class="media-heading"><?= isset($v->title) ? $v->title : ''; ?></h3> 
-                            <h4 style="margin-top: 3px;"> เรื่อง : เล่าขานตำนานเมืองสกลนคร </h4>
-                            <h4 style="margin-top: 3px;">ชื่อผู้บรรยาย <?= $v->user_name; ?></h4>
-                            <h4 style="margin-top: 3px;">เวลาจัดการการบรรยาย <?= isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDateTimeFull($v->date) : ''; ?></h4>
-                        </div> 
+			<div class='media-body'><?= renderMediaBody($v); ?></div>
                         <div class="media-right"> 
-                            <a href="#"> 
-                                <img alt="64x64" class="media-object img-circle" data-src="holder.js/64x64" 
-                                     src="<?= "{$url}/files/{$v->user_image}" ?>" data-holder-rendered="true" style="width: 100px; height: 100px;border: 3px solid #009688;"> 
-                            </a> 
+				<?= renderImage($v); ?>
                         </div> 
                     </div>
                     <hr/>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php else: ?>
-
+		<h3 class='alert alert-info'>ไม่พบข้อมูล</h3>
         <?php endif; ?>
 
     </div>
 </div>
+<?php 
+	function renderImage($v){
+          $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
+	  return  "
+		 <a href='#'>
+                      <img alt='64x64' class='media-object img-circle' src='{$url}/files/{$v->user_image}' style='width: 100px; height: 100px;border: 3px solid #009688;'>
+                 </a>
+	  ";
+	}
+	function renderMediaBody($v){
+	   $title = isset($v['title'])?$v['title']:'';
+	   $userName = isset($v->user_name)?$v->user_name:'';
+	   $date = isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDate($v->date) : '';
+	   $renderTime = renderTime($v);
+	   $html = "
+		<h3 class='media-heading'>{$title}</h3>
+		<h4 style='margin-top: 3px;'> เรื่อง : {$title} </h4>
+                <h4 style='margin-top: 3px;'>ชื่อผู้บรรยาย {$userName}</h4>
+                <h4 style='margin-top: 3px;'>เวลาจัดการการบรรยาย {$date} {$renderTime}
+                </h4>
+
+    	   ";
+	   return $html;
+	
+	}
+	function renderTime($v){
+ 	  $time_start = isset($v['time_start'])?$v['time_start']:'';
+	  return "เวลา {$time_start}";
+       }
+?>
+
 <?php richardfan\widget\JSRegister::begin();?>
 <script>
    $('.view-book').on('click', function(){

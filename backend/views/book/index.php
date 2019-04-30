@@ -41,13 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'attribute'=>'date',
                 'value'=>function($model){
-                    if ($model->date) {
-                        return appxq\sdii\utils\SDdate::mysql2phpDateTime($model->date);
-                    }
-                    return '';
+                        return isset($model->date)?appxq\sdii\utils\SDdate::mysql2phpDate($model->date):'';
                 }
             ],        
-            
+	    [
+		'attribute'=>'time_start',
+		'value'=>function($model){ 
+			return isset($model->time_start)?$model->time_start:''; 
+		}
+	    ],            
             'title',
             ['class' => 'yii\grid\ActionColumn'],
         ],
