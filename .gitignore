@@ -42,10 +42,13 @@ phpunit.phar
 /backend/web/index-test.php
 /backend/web/robots.txt
 
-/storage/web
+
 /vendors
 /vendor
 
 /backend/web/assets
 /frontend/web/assets
 /vendor5
+
+/storage/web/files
+/storage/web/uploads

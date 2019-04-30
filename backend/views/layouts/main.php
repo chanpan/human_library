@@ -41,9 +41,9 @@ AppAsset::register($this);
         
         ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
         ['label' => 'ผู้ใช้', 'url' => ['/user/index']],
-        ['label' => 'ข่าวประชาสัมพันธ์', 'url' => ['/advertisement/index']],
+        ['label' => 'ข่าวประกาศ', 'url' => ['/advertisement/index']],
         ['label' => 'การบรรยาย', 'url' => ['/book/index']],
-        ['label' => 'ภาพ Slide', 'url' => ['/banners/index']],
+        ['label' => 'ภาพสไลด์', 'url' => ['/banners/index']],
         ['label' => 'ภาพ/วีดีโอกิจกรรม', 'url' => ['/events/index']],
         [
             'label' => 'ข้อมูลทั่วไป',
