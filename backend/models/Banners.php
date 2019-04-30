@@ -32,7 +32,7 @@ class Banners extends \yii\db\ActiveRecord
         return [
             [['forder', 'create_by'], 'integer'],
             [['create_date'], 'safe'],
-            [['photo', 'detail'], 'string', 'max' => 255],
+            [['photo', 'detail', 'url'], 'string', 'max' => 255],
         ];
     }
 
@@ -48,6 +48,7 @@ class Banners extends \yii\db\ActiveRecord
             'forder' => 'ลำดับที่',
             'create_by' => 'สร้างโดย',
             'create_date' => 'สร้างเมื่อวันที่',
+	    'url'=>'Url',
         ];
     }
 }

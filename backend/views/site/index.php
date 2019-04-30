@@ -36,7 +36,7 @@ $storage = isset(Yii::$app->params['storageUrl'])?Yii::$app->params['storageUrl'
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <button data-url="<?= Url::to(['/events/index'])?>" title="กิจกรรม" class="add-show-form cn_btn_upload_file main-box"> 
+            <button data-url="<?= Url::to(['/banners/index'])?>" title="กิจกรรม" class="add-show-form cn_btn_upload_file main-box"> 
                 <img src="<?= "{$storage}/images/slider.png"?>"/>
                 <div class="box-text">ภาพสไลด์</div>
             </button>

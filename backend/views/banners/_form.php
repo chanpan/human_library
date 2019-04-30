@@ -28,6 +28,7 @@ use yii\widgets\ActiveForm;
         ]
     ])
     ?>
+    <?= $form->field($model, 'url')->textInput() ?>
     <?= $form->field($model, 'forder')->textInput() ?>
  
     <div class="form-group">
