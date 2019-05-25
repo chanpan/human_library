@@ -14,12 +14,31 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
-     
-    public function actionIndex()
+    public function beforeAction($action)
     {
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
         if(!\backend\classes\CNUser::can_admin()){
             return $this->redirect(['/site/access-denine']);
-        }
+        }//ยังไม่ ไม่ใข่ admin
+         
+      }
+      
+       
+      
+      //return true;
+      return parent::beforeAction($action);
+    }
+    
+    public function actionIndex()
+    {
+
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -37,9 +56,7 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+         
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -52,9 +69,7 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = new User();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -84,9 +99,7 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -112,9 +125,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -129,9 +140,7 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+      
         if (($model = User::findOne($id)) !== null) {
             return $model;
         }

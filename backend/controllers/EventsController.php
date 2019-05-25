@@ -14,10 +14,24 @@ use yii\filters\VerbFilter;
  */
 class EventsController extends Controller {
  
-    public function actionIndex() {
+    public function beforeAction($action)
+    {
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
         if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
             return $this->redirect(['/site/access-denine']);
         }
+         
+      }
+    }   
+    public function actionIndex() {
+        
         $searchModel = new EventsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -34,9 +48,7 @@ class EventsController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id) {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
          $files = \backend\models\Files::find()->where('event_id = :event_id', [':event_id'=>$id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -50,9 +62,7 @@ class EventsController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = new Events();
         $event_type = \Yii::$app->request->get('event_type', '1');
         if ($model->load(Yii::$app->request->post())) {
@@ -85,9 +95,7 @@ class EventsController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id) {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = $this->findModel($id);
         $event_type = \Yii::$app->request->get('event_type', '1');
         \Yii::$app->session['file']=$model->file; //session เก็บค่า file
@@ -134,9 +142,7 @@ class EventsController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id) {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -150,9 +156,7 @@ class EventsController extends Controller {
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         if (($model = Events::findOne($id)) !== null) {
             return $model;
         }

@@ -15,6 +15,9 @@ class SiteController extends Controller
     
     public function actionIndex()
     {
+       if(\backend\classes\CNUser::isGuast()){
+           return $this->redirect(['/site/login']);
+       }
        $roles = \backend\classes\CNUser::can_admin(Yii::$app->session['user_id']);
        //\appxq\sdii\utils\VarDumper::dump($roles);
        return $this->render('index');

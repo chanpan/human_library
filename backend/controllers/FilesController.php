@@ -14,6 +14,24 @@ use Yii;
  * @author chanpan
  */
 class FilesController extends \yii\web\Controller {
+    public function beforeAction($action)
+    {
+      $actions = ['index','create','update','delete','delete-all','view','upload'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
+         
+      }
+    }
+    
+    
     private function getMaxForder(){
         
         $user_id = \backend\classes\CNUser::get_user_id();
@@ -28,9 +46,7 @@ class FilesController extends \yii\web\Controller {
         return 100000;
     }
     public function actionUpload() {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         ini_set('post_max_size', '11164M');
         ini_set('upload_max_filesize', '11164M');
         $error_arr = [];
@@ -68,9 +84,7 @@ class FilesController extends \yii\web\Controller {
     }
     
     public function actionDelete() {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $path = Yii::getAlias('@storage') . "/web/files/";
         $id = \Yii::$app->request->post('id', '');
         //return \yii\helpers\Json::encode(['id'=>$id]);

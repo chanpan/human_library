@@ -14,25 +14,22 @@ use yii\filters\VerbFilter;
  */
 class BannersController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
+    public function beforeAction($action)
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
+            return $this->redirect(['/site/access-denine']);
+        }
+         
+      }
     }
-
-    /**
-     * Lists all Banners models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
@@ -96,9 +93,7 @@ class BannersController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = $this->findModel($id);
         \Yii::$app->session['photo']=$model->photo; //session เก็บค่า file
         if ($model->load(Yii::$app->request->post())) {

@@ -3,6 +3,11 @@
 namespace backend\classes;
 
 class CNUser {
+    public static function isGuast(){
+        if(!isset(\Yii::$app->session['user_id'])){
+            return true;
+        }
+    }
 
     public static function get_fullname_by_user_id($user_id) {
         $user = \common\models\User::findOne($user_id);

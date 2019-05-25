@@ -14,13 +14,25 @@ use yii\filters\VerbFilter;
  */
 class AdvertisementController extends Controller
 {
-    
-    public function actionIndex()
+    public function beforeAction($action)
     {
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
         if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
             return $this->redirect(['/site/access-denine']);
         }
-        
+         
+      }
+    }
+    public function actionIndex()
+    {
+       
         $searchModel = new AdvertisementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -54,9 +66,7 @@ class AdvertisementController extends Controller
      */
     public function actionCreate()
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = new Advertisement();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -90,9 +100,7 @@ class AdvertisementController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+         
         $model = $this->findModel($id);
         \Yii::$app->session['photo']=$model->photo; //session เก็บค่า file
         if ($model->load(Yii::$app->request->post())) {
@@ -134,9 +142,7 @@ class AdvertisementController extends Controller
      */
     public function actionDelete($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+         
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -151,9 +157,7 @@ class AdvertisementController extends Controller
      */
     protected function findModel($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         if (($model = Advertisement::findOne($id)) !== null) {
             return $model;
         }

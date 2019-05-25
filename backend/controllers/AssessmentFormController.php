@@ -14,12 +14,25 @@ use yii\filters\VerbFilter;
  */
 class AssessmentFormController extends Controller
 {
-    
-    public function actionIndex()
+    public function beforeAction($action)
     {
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
         if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
             return $this->redirect(['/site/access-denine']);
         }
+         
+      }
+    }  
+    public function actionIndex()
+    {
+        
         $searchModel = new AssessmentFormSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -37,9 +50,7 @@ class AssessmentFormController extends Controller
      */
     public function actionView($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -52,9 +63,7 @@ class AssessmentFormController extends Controller
      */
     public function actionCreate()
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = new AssessmentForm();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -73,9 +82,7 @@ class AssessmentFormController extends Controller
     
     public function actionCreateLevel1()
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+         
         $model = new \common\models\AssessmentFormL1();
         return $this->render('create-level1', [
             'model'=>$model
@@ -91,9 +98,7 @@ class AssessmentFormController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -114,9 +119,7 @@ class AssessmentFormController extends Controller
      */
     public function actionDelete($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -131,9 +134,7 @@ class AssessmentFormController extends Controller
      */
     protected function findModel($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         if (($model = AssessmentForm::findOne($id)) !== null) {
             return $model;
         }

@@ -14,12 +14,26 @@ use yii\filters\VerbFilter;
  */
 class RegisterFormController extends Controller
 {
-     
-    public function actionIndex()
+    
+   public function beforeAction($action)
     {
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
         if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
             return $this->redirect(['/site/access-denine']);
         }
+         
+      }
+    }
+    public function actionIndex()
+    {
+        
         $searchModel = new RegisterFormSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -37,9 +51,7 @@ class RegisterFormController extends Controller
      */
     public function actionView($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+      
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -52,9 +64,7 @@ class RegisterFormController extends Controller
      */
     public function actionCreate()
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         $model = new RegisterForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -75,9 +85,7 @@ class RegisterFormController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,9 +106,7 @@ class RegisterFormController extends Controller
      */
     public function actionDelete($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+      
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -115,9 +121,7 @@ class RegisterFormController extends Controller
      */
     protected function findModel($id)
     {
-        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         if (($model = RegisterForm::findOne($id)) !== null) {
             return $model;
         }

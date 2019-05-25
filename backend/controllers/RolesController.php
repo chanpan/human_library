@@ -14,12 +14,25 @@ use yii\filters\VerbFilter;
  */
 class RolesController extends Controller
 {
-   
-    public function actionIndex()
+   public function beforeAction($action)
     {
-        if(!\backend\classes\CNUser::can_admin()){
+      $actions = ['index','create','update','delete','delete-all','view'];
+      
+      if(in_array($action->id, $actions))
+      {
+         if(\backend\classes\CNUser::isGuast()){
+             return $this->redirect(['/site/login']);
+         }//ยังไม่ login
+         
+        if(!\backend\classes\CNUser::can_admin() && !\backend\classes\CNUser::can_manager()){
             return $this->redirect(['/site/access-denine']);
         }
+         
+      }
+    }
+    public function actionIndex()
+    {
+      
         $searchModel = new RolesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -37,9 +50,7 @@ class RolesController extends Controller
      */
     public function actionView($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+       
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -52,9 +63,7 @@ class RolesController extends Controller
      */
     public function actionCreate()
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $model = new Roles();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -75,9 +84,7 @@ class RolesController extends Controller
      */
     public function actionUpdate($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+         
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,9 +105,7 @@ class RolesController extends Controller
      */
     public function actionDelete($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -115,9 +120,7 @@ class RolesController extends Controller
      */
     protected function findModel($id)
     {
-        if(!\backend\classes\CNUser::can_admin()){
-            return $this->redirect(['/site/access-denine']);
-        }
+        
         if (($model = Roles::findOne($id)) !== null) {
             return $model;
         }
