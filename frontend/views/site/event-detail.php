@@ -3,6 +3,11 @@ $this->title = 'รายละเอียดกิจกรรม';
 \cpn\chanpan\assets\cnlightbox\CNLightBoxAsset::register($this);
 $storage = isset(Yii::$app->params['storageUrl']) ? Yii::$app->params['storageUrl'] : '';
 ?>
+<?php if(!Yii::$app->user->isGuest): ?>
+<div class="pull-right">
+    <a href="<?= yii\helpers\Url::to(['/site/register-form?event_id='.$model->id])?>" class="btn btn-success">ลงทะเบียน</a>
+</div>
+<?php endif; ?>
 <h4><?= isset($model->title) ? $model->title : '' ?></h4>
 <div id="aniimated-thumbnials">
     <h3>รูปภาพ</h3>

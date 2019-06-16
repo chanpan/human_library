@@ -209,11 +209,13 @@ public function actionEventDetail(){
         //register-form
         $user_id = \backend\classes\CNUser::get_user_id();
         $model = \common\models\RegisterForm::find()->where(['user_id'=>$user_id])->one();
+        $event_id = \Yii::$app->request->get('event_id', '');
         $status = true;
         if(!$model){
             $status = false;
             $model = new \common\models\RegisterForm();
         }
+        $model->event_id = $event_id;
         if($model->load(Yii::$app->request->post())){
             $model->user_id = \backend\classes\CNUser::get_user_id();
             $model->create_date = date('Y-m-d H:i:s');

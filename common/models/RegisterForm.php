@@ -32,7 +32,7 @@ class RegisterForm extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'department','user_type','tel','email'], 'required'],
-            [['user_id'], 'integer'],
+            [['user_id','event_id'], 'integer'],
             [['name', 'department'], 'string', 'max' => 255],
             [['tel'], 'string', 'max' => 10],
             [['user_type', 'email'], 'string', 'max' => 200],

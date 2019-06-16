@@ -21,10 +21,11 @@ use yii\widgets\ActiveForm;
 </div>
 <?php else:?>
 <div class="col-md-6 col-md-offset-3">
-    
+    <a href="<?= yii\helpers\Url::to(['/site/event-detail?id='.$model->event_id])?>"><< ย้อนกลับ</a>
     <div class="register-form-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'event_id')->hiddenInput()->label(false) ?>    
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
     <?php 

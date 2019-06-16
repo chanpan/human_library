@@ -32,21 +32,21 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse navbar-fixed-top nav-blue',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Human Library', 'url' => ['/site/index']],
-        ['label' => 'กิจกรรม', 'url' => ['/site/event']],
-        ['label' => 'ข่าวประกาศ', 'url' => ['/site/news']],
+//        ['label' => 'Human Library', 'url' => ['/site/index']],
+        ['label' => "<img src='".yii\helpers\Url::to(['@web/img/event.png'])."' style='width: 25px;'> กิจกรรม", 'url' => ['/site/event']],
+        ['label' => "<img src='".yii\helpers\Url::to(['@web/img/news.png'])."' style='width: 25px;'> ข่าวประกาศ", 'url' => ['/site/news']],
         //['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (!isset(\Yii::$app->session['user_id'])) {
         $menuItems[] = ['label' => 'เข้าสู่ระบบ', 'url' => ['/site/login']];
         $menuItems[] = ['label' => 'ลงทะเบียน', 'url' => ['/site/signup']];
     } else {
-        $menuItems[] = ['label' => 'ลงทะเบียนเข้าร่วมกิจกรรม', 'url' => ['/site/register-form']];
-        $menuItems[] = ['label' => 'แบบประเมินผลออนไลน์การเข้าร่วมกิจกรรม', 'url' => ['/site/assessment-form']];
+//        $menuItems[] = ['label' => 'ลงทะเบียนเข้าร่วมกิจกรรม', 'url' => ['/site/register-form']];
+        $menuItems[] = ['label' => "<img src='".yii\helpers\Url::to(['@web/img/form.png'])."' style='width: 25px;'>  แบบประเมินผลออนไลน์", 'url' => ['/site/assessment-form']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
@@ -59,6 +59,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'encodeLabels'=>false
     ]);
     NavBar::end();
     ?>
@@ -87,6 +88,28 @@ AppAsset::register($this);
     </div>
 </footer>
 
+    
+    <?php appxq\sdii\widgets\CSSRegister::begin();?>
+    <style>
+        .nav-blue{
+            background-color: #2196F3;
+            border-color: #2196F3;
+        }
+        .nav-blue .navbar-brand {
+            color: #fff;
+        }
+        .nav-blue .navbar-nav > .active > a, .nav-blue .navbar-nav > .active > a:hover, .nav-blue .navbar-nav > .active > a:focus {
+            color: #fff;
+            background-color: #1476c3;
+        }
+        .nav-blue .navbar-nav > li > a {
+            color: #ffffff;
+        }
+        .nav-blue .btn-link {
+            color: #ffffff;
+        }
+    </style>
+    <?php appxq\sdii\widgets\CSSRegister::end();?>
 <?php $this->endBody() ?>
 </body>
 </html>
