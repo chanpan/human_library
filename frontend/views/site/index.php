@@ -7,43 +7,84 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
 
 <div class="row">
     
-    <div class="col-md-8 col-md-offset-2">
+    <div class="">
         <?php echo $this->render('_slider')?>
-        <?php yii\widgets\ActiveForm::begin(['method'=>'get']);?>
-            <div class="input-group"> 
-                <input class="form-control" name="search" placeholder="ค้นหาการบรรยายได้"> 
-                <div class="input-group-btn"> 
-                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> ค้นหา</button> 
-                </div> 
-            </div> 
-        <?php yii\widgets\ActiveForm::end();?>
-
-        <?php if ($model): ?>
-            <?php foreach ($model as $k => $v): ?>
-                <?php if ($k % 2 == 0): ?>
-                    <div class="media view-book" data-url="<?= Url::to(["/site/view?id={$v->id}"])?>"> 
-                        <div class="media-left"> 
-				 <?= renderImage($v); ?>
-                        </div> 
-			 <div class='media-body'><?= renderMediaBody($v); ?></div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-info">
+                    <div class='panel-heading'><img src="/img/event.png" style="width: 25px;"> กิจกรรม</div>
+                    <div class="panel-body">
+                        <?php if ($model): ?>
+                            <?php foreach ($event as $k => $v): ?>
+                                <?php 
+                                    $title = isset($v['title'])?$v['title']:'';
+                                    $userName = isset($v->user_name)?$v->user_name:'';
+                                    $date = isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDate($v->date) : '';
+                                    $renderTime = renderTime($v);
+                                ?>
+                                <div class="col-md-3">
+                                    <a href="<?= Url::to(["/site/event-detail?id={$v->id}"]) ?>">
+                                        <div class="text-center">
+                                           <img src="<?= "{$url}/files/{$v->file}"; ?>" class="img-thumbnail img-card" style=" border-radius:5px;">
+                                        </div>
+                                        <div style="text-align:center;font-size:14px ">
+                                            <div style="font-size:12px;color:#000000"> <?= "{$title}"; ?> </div> 
+                                        </div>          
+                                    </a>
+                                    <div style="margin-bottom:14px"></div>
+                                </div>
+                        
+                                
+                                 
+                        
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <h3 class='alert alert-info'>ไม่พบข้อมูล</h3>
+                        <?php endif; ?>
                     </div>
-                    <hr/>
-                <?php else: ?>
-                    <div class="media view-book" data-url="<?= Url::to(["/site/view?id={$v->id}"])?>"> 
-			<div class='media-body'><?= renderMediaBody($v); ?></div>
-                        <div class="media-right"> 
-				<?= renderImage($v); ?>
-                        </div> 
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class='panel-heading'>การบรรยาย</div>
+                    <div class="panel-body">
+                        <?php if ($model): ?>
+                            <?php foreach ($model as $k => $v): ?>
+                                <?php 
+                                    $title = isset($v['title'])?$v['title']:'';
+                                    $userName = isset($v->user_name)?$v->user_name:'';
+                                    $date = isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDate($v->date) : '';
+                                    $renderTime = renderTime($v);
+                                ?>
+                                <div class="row" style="border-bottom: solid 1px #f0f0f0;padding: 2px;">
+                                        <a href="<?= Url::to(["/site/view?id={$v->id}"]) ?>">
+                                                    <div class="col-sm-3"> 
+                                                        <img src="<?= "{$url}/files/{$v->user_image}"; ?>" class="img-thumbnail">
+                                                    </div> 
+                                                    <div class="col-sm-9">
+                                                        <div style="font-size:12px;color:#000000"> <?= "เรื่อง : {$title}"; ?> </div> 
+                                                        <div style="font-size:12px;color:#e74c3c"> <?= "ชื่อผู้บรรยาย {$userName}"; ?> </div> 
+                                                        <div style="font-size:12px;color:#000000"> <?= "เรื่อง : {$title}"; ?> </div>
+                                                        <div style="font-size:12px;color:#000000"> <?= "เวลาจัดการการบรรยาย {$date} {$renderTime}"; ?> </div>
+                                                    </div>
+                                        </a>   
+                                     
+                                </div>
+                        
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <h3 class='alert alert-info'>ไม่พบข้อมูล</h3>
+                        <?php endif; ?>
                     </div>
-                    <hr/>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php else: ?>
-		<h3 class='alert alert-info'>ไม่พบข้อมูล</h3>
-        <?php endif; ?>
+                </div>
+            </div>
+             
+        </div> 
 
     </div>
 </div>
+
+
 <?php 
 	function renderImage($v){
           $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';

@@ -8,7 +8,7 @@ $storage = isset(Yii::$app->params['storageUrl']) ? Yii::$app->params['storageUr
     <a href="<?= yii\helpers\Url::to(['/site/register-form?event_id='.$model->id])?>" class="btn btn-success">ลงทะเบียน</a>
 </div>
 <?php endif; ?>
-<h4><?= isset($model->title) ? $model->title : '' ?></h4>
+<label><?= isset($model->title) ? $model->title : '' ?></label>
 <div id="aniimated-thumbnials">
     <h3>รูปภาพ</h3>
     <?php if($files):?>

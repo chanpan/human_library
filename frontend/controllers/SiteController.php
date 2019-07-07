@@ -28,10 +28,14 @@ class SiteController extends Controller
                     [":title"=>"%{$search}%", ":detail"=>"%{$search}%"]);
         } 
         $model = $model->all(); 
-        
         $this->save_view_count();
+        
+        
+        $event = \backend\models\Events::find()->all(); 
+        
         return $this->render('index', [
-            'model'=>$model
+            'model'=>$model,
+            'event'=>$event
         ]);
     }
 public function actionView(){
