@@ -8,7 +8,43 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
 <div class="row">
     
     <div class="">
-        <?php echo $this->render('_slider')?>
+        <div class="row">
+            <div class="col-md-8"><?php echo $this->render('_slider')?></div>
+            <div class="col-md-4">
+                <?php if($news):?>
+                    <?php foreach($news as $k=>$n):?>
+                        <?php 
+                            if ($n->photo) {
+                                $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
+                                 
+                            }
+                        ?>
+                        <div style="display:block;height:158px;" class="col-md-6 col-xs-6 ">
+                            <a href="/เที่ยว/ภูป่าเปาะ" rel="nofollow">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="text-center">
+                                            <img src="<?= "{$url}/files/{$n->photo}"; ?>" class="img-thumbnail" style=" border-radius:5px;    height: 100px;    width: 100%;" >
+                                        </div>
+                                        <div style="    text-align: center;
+    font-size: 14px;
+    height: 40px;
+    color: #000;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    white-space: nowrap;">
+                                            <span> <?= isset($n->title)?$n->title:'ไม่ได้ตั้งชื่อ'; ?> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div style="margin-bottom:14px"></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif;?>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-info">

@@ -31,11 +31,13 @@ class SiteController extends Controller
         $this->save_view_count();
         
         
-        $event = \backend\models\Events::find()->all(); 
+        $event = \backend\models\Events::find()->limit(10)->all(); 
+        $news = \backend\models\Advertisement::find()->orderBy(['id'=>SORT_DESC])->limit(4)->all();
         
         return $this->render('index', [
             'model'=>$model,
-            'event'=>$event
+            'event'=>$event,
+            'news'=>$news
         ]);
     }
 public function actionView(){

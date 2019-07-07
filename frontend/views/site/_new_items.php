@@ -6,12 +6,12 @@
 <div class="col-md-2">
     <?php 
         if ($model->photo) {
-        $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
-        echo Html::img("{$url}/files/{$model->photo}", [
-                    'class' => 'img img-responsive img-rounded',
-                    'style' => 'width:100px;'
-        ]);
-    }
+            $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
+            echo Html::img("{$url}/files/{$model->photo}", [
+                        'class' => 'img img-responsive img-rounded',
+                        'style' => 'width:100px;'
+            ]);
+        }
     ?>
 </div>
 <div class="col-md-10">

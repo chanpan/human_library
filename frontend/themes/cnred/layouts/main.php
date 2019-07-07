@@ -87,38 +87,7 @@ $baseUrl = $this->theme->baseUrl;;
                             <div class="col-sm-8 col-xs-6">
                                 <?= $this->render('_search')?>
                             </div>
-                            <div class="col-sm-2 col-xs-2">
-                                <div class="shopping_cart">
-                                    <div
-                                        id="cart" class="btn-shopping-cart" >
-                                        <a href="/cart/my-cart"
-                                           data-loading-text="Loading..."
-                                           class="btn-group top_cart dropdown-toggle"
-
-                                           >
-                                            <div class="shopcart">
-                                                <span class="icon-c">
-                                                    <img src="<?= \Yii::getAlias('@storageUrl') . '/images/cart.png' ?>"/>
-                                                </span>
-                                                <div class="shopcart-inner">
-
-                                                    <span class="total-shopping-cart cart-total-full">
-                                                        <span class="items_cart">
-                                                            <?php
-                                                            //\appxq\sdii\utils\VarDumper::dump(\cpn\chanpan\classes\CNCookies::GetCookie('cart'));
-                                                            echo count(Yii::$app->session["cart"]);
-                                                            ?>
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </a>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
+                            
                             <!-- Mobile Menu Start -->
                             <div class="mobile-menu-area">
                                 <div class="container-fluid">
