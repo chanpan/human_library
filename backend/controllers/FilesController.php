@@ -29,6 +29,7 @@ class FilesController extends \yii\web\Controller {
         }
          
       }
+      return parent::beforeAction($action);
     }
     
     

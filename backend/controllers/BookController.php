@@ -29,6 +29,7 @@ class BookController extends Controller
         }
          
       }
+      return parent::beforeAction($action);
     }
     public function actionIndex()
     {

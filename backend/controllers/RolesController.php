@@ -29,6 +29,7 @@ class RolesController extends Controller
         }
          
       }
+      return parent::beforeAction($action);
     }
     public function actionIndex()
     {

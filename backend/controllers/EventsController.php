@@ -29,6 +29,7 @@ class EventsController extends Controller {
         }
          
       }
+      return parent::beforeAction($action);
     }   
     public function actionIndex() {
         

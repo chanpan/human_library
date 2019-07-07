@@ -20,6 +20,7 @@ class AdvertisementController extends Controller
       
       if(in_array($action->id, $actions))
       {
+          
          if(\backend\classes\CNUser::isGuast()){
              return $this->redirect(['/site/login']);
          }//ยังไม่ login
@@ -29,10 +30,11 @@ class AdvertisementController extends Controller
         }
          
       }
+      return parent::beforeAction($action);
     }
     public function actionIndex()
     {
-       
+        
         $searchModel = new AdvertisementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

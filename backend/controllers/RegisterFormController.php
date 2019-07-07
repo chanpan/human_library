@@ -30,6 +30,7 @@ class RegisterFormController extends Controller
         }
          
       }
+      return parent::beforeAction($action);
     }
     public function actionIndex()
     {

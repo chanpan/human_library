@@ -29,6 +29,7 @@ class AssessmentFormController extends Controller
         }
          
       }
+      return parent::beforeAction($action);
     }  
     public function actionIndex()
     {
