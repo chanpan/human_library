@@ -20,7 +20,7 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
                             }
                         ?>
                         <div style="display:block;height:158px;" class="col-md-6 col-xs-6 ">
-                            <a href="/เที่ยว/ภูป่าเปาะ" rel="nofollow">
+                            <a href="<?= Url::to(["/site/news-detail?id={$n->id}"]) ?>" rel="nofollow">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="text-center">
@@ -51,28 +51,31 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
                     <div class='panel-heading'><img src="/img/event.png" style="width: 25px;"> กิจกรรม</div>
                     <div class="panel-body">
                         <?php if ($model): ?>
-                            <?php foreach ($event as $k => $v): ?>
+                            <?php foreach ($event as $k => $v): ?> 
                                 <?php 
                                     $title = isset($v['title'])?$v['title']:'';
-                                    $userName = isset($v->user_name)?$v->user_name:'';
-                                    $date = isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDate($v->date) : '';
+                                    $user_id = isset($v->create_at)?$v->create_at:'';
+                                    $userName = backend\classes\CNUser::get_fullname_by_user_id($user_id);
+                                    $date = isset($v->create_date) ? appxq\sdii\utils\SDdate::mysql2phpThDate($v->create_date) : '';
                                     $renderTime = renderTime($v);
+
                                 ?>
-                                <div class="col-md-3">
+
+                                <div class="col-md-6">
                                     <a href="<?= Url::to(["/site/event-detail?id={$v->id}"]) ?>">
-                                        <div class="text-center">
-                                           <img src="<?= "{$url}/files/{$v->file}"; ?>" class="img-thumbnail img-card" style=" border-radius:5px;">
-                                        </div>
-                                        <div style="text-align:center;font-size:14px ">
-                                            <div style="font-size:12px;color:#000000"> <?= "{$title}"; ?> </div> 
-                                        </div>          
+                                        <div class="col-md-3 col-sm-3 col-xs-12"> 
+                                                        <img src="<?= "{$url}/files/{$v->file}"; ?>" class="img-thumbnail">
+                                                    </div> 
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <div style="font-size:12px;color:#000000"> <?= "เรื่อง : {$title}"; ?> </div> 
+                                                        <div style="font-size:12px;color:#e74c3c"><i class="glyphicon glyphicon-user"></i> <?= "ชื่อผู้บรรยาย {$userName}"; ?> </div> 
+                                                        <div style="font-size:12px;color:#000000"><i class="glyphicon glyphicon-calendar"></i> <?= "วันที่จัดการการบรรยาย {$date} {$renderTime}"; ?> </div>
+                                                    </div> 
                                     </a>
                                     <div style="margin-bottom:14px"></div>
                                 </div>
-                        
-                                
-                                 
-                        
+
+                         
                             <?php endforeach; ?>
                         <?php else: ?>
                             <h3 class='alert alert-info'>ไม่พบข้อมูล</h3>
@@ -81,39 +84,37 @@ $url = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="panel panel-info">
-                    <div class='panel-heading'>การบรรยาย</div>
+                <div class="panl panel-info">
+                    <div class="panel-heading"><img src="/img/news.png" style="width: 25px;"> ข่าวประกาศ</div>
                     <div class="panel-body">
-                        <?php if ($model): ?>
-                            <?php foreach ($model as $k => $v): ?>
-                                <?php 
+                        <?php if ($news2): ?>
+                            <?php foreach ($news2 as $k => $v): ?>
+                                 <?php 
                                     $title = isset($v['title'])?$v['title']:'';
-                                    $userName = isset($v->user_name)?$v->user_name:'';
-                                    $date = isset($v->date) ? appxq\sdii\utils\SDdate::mysql2phpThDate($v->date) : '';
-                                    $renderTime = renderTime($v);
+                                    $user_id = isset($v->create_by)?$v->create_by:'';
+                                    $userName = backend\classes\CNUser::get_fullname_by_user_id($user_id);
+                                    $date = isset($v->create_date) ? appxq\sdii\utils\SDdate::mysql2phpDate($v->create_date) : '';
+
                                 ?>
-                                <div class="row" style="border-bottom: solid 1px #f0f0f0;padding: 2px;">
-                                        <a href="<?= Url::to(["/site/view?id={$v->id}"]) ?>">
-                                                    <div class="col-sm-3"> 
-                                                        <img src="<?= "{$url}/files/{$v->user_image}"; ?>" class="img-thumbnail">
+                                <div class="col-md-12">
+                                    <a href="<?= Url::to(["/site/news-detail?id={$v->id}"]) ?>">
+                                        <div class="col-md-3 col-sm-3 col-xs-12"> 
+                                                        <img src="<?= "{$url}/files/{$v->photo}"; ?>" class="img-thumbnail">
                                                     </div> 
-                                                    <div class="col-sm-9">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <div style="font-size:12px;color:#000000"> <?= "เรื่อง : {$title}"; ?> </div> 
-                                                        <div style="font-size:12px;color:#e74c3c"> <?= "ชื่อผู้บรรยาย {$userName}"; ?> </div> 
-                                                        <div style="font-size:12px;color:#000000"> <?= "เรื่อง : {$title}"; ?> </div>
-                                                        <div style="font-size:12px;color:#000000"> <?= "เวลาจัดการการบรรยาย {$date} {$renderTime}"; ?> </div>
-                                                    </div>
-                                        </a>   
-                                     
+                                                        <div style="font-size:12px;color:#e74c3c"><i class="glyphicon glyphicon-user"></i> <?= "ชื่อผู้บรรยาย {$userName}"; ?> </div> 
+                                                        <div style="font-size:12px;color:#000000"><i class="glyphicon glyphicon-calendar"></i> <?= "วันที่ประกาศ {$date}"; ?> </div>
+                                                    </div> 
+                                    </a>
+                                    
                                 </div>
-                        
+                                <div class="clearfix" style="    margin-bottom: 10px;border-bottom: 1px solid whitesmoke;padding-bottom: 10px;"></div>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <h3 class='alert alert-info'>ไม่พบข้อมูล</h3>
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            </div> 
              
         </div> 
 

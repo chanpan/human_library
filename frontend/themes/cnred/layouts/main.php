@@ -80,7 +80,7 @@ $baseUrl = $this->theme->baseUrl;;
                                             $image = "{$imagePath}/images/store.png";
                                             $image = isset(\Yii::$app->params['logo']) ? \Yii::$app->params['logo'] : '';
                                         ?>
-                                        <img src="http://storage.human.local/images/book.png" alt="" style="width:60px;margin-top: -10px;"/>
+                                        <img src="http://storage.human.local/images/book.png" alt="" id="img-logo" />
                                     </a>
                                 </div>
                             </div>  
@@ -129,9 +129,9 @@ $baseUrl = $this->theme->baseUrl;;
                 <?= $content; ?>
                 </div>
                 
-                <footer class="container">
+                <footer class="container footer">
                     <?php 
-                       echo isset(\Yii::$app->params['footer'])?\Yii::$app->params['footer']:'<div class="text-center">&copy; copyright dconhub.com</div>'
+                       echo isset(\Yii::$app->params['footer'])?\Yii::$app->params['footer']:'<div class="text-center">&copy; copyright Human Library </div>'
                     ?>
                 </footer>
             </div>

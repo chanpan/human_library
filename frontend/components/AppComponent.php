@@ -28,14 +28,8 @@ class AppComponent extends Component {
     
     
     public static function navbarHeaderLeftMenu($moduleID, $controllerID, $actionID) {
-        $navbar = \Yii::$app->params['navbar-header-left'] = [
-           // ['label' => '<i class="fa fa-home"></i> หน้าหลัก', 'url' => ['/'], 'active'=>($controllerID == 'brand')?true:false],
-            ['label' => 'สินค้าตามแบรนด์', 'url' => ['/brand'], 'active'=>($controllerID == 'brand')?true:false],
-            ['label' => 'สินค้าตามหมวดหมู่', 'url' => ['/categorie'], 'active'=>($controllerID == 'categorie')?true:false],
-            ['label' => 'เกี่ยวกับเรา', 'url' => ['/site/about'], 'active'=>($controllerID == 'categorie')?true:false],
-            ['label' => 'ติดต่อเรา', 'url' => ['/site/contact'], 'active'=>($controllerID == 'categorie')?true:false],
-        ];
-        return $navbar;
+         
+        
     }
     public static function navbarHeaderRightMenu($moduleID, $controllerID, $actionID) {
         //\appxq\sdii\utils\VarDumper::dump($moduleID);
@@ -48,7 +42,8 @@ class AppComponent extends Component {
         }
         $navbar = \Yii::$app->params['navbar-header-right'] = [
             ['label' => "<img src='".yii\helpers\Url::to(['@web/img/home.png'])."' style='width: 25px;'> หน้าหลัก", 'url' => ['/site/index']],
-            ['label' => "<img src='".yii\helpers\Url::to(['@web/img/event.png'])."' style='width: 25px;'> กิจกรรม", 'url' => ['/site/event']],
+            ['label' => "<img src='".yii\helpers\Url::to(['@web/img/event.png'])."' style='width: 25px;'> กิจกรรมการบรรยาย", 'url' => ['/site/event']],
+
             ['label' => "<img src='".yii\helpers\Url::to(['@web/img/news.png'])."' style='width: 25px;'> ข่าวประกาศ", 'url' => ['/site/news']],
             ['label' => "<img src='".yii\helpers\Url::to(['@web/img/form.png'])."' style='width: 25px;'>  แบบประเมินผลออนไลน์", 'url' => ['/site/assessment-form'],'visible' => isset(\Yii::$app->session['user_id'])],
             ['label' => isset($fullName) ? "Logout({$fullName})" : 'ข้อมูลส่วนตัว', 

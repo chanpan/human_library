@@ -37,7 +37,7 @@ class Events extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['create_at', 'update_at', 'rstat', 'forder', 'event_type'], 'integer'],
             [['detail'], 'string'],
-            [['create_date', 'update_date'], 'safe'],
+            [['create_date', 'update_date','time_start'], 'safe'],
             [['title'], 'string', 'max' => 100],
             [['id'], 'unique'],
             [['file'], 'file','maxFiles' => 20],
@@ -60,7 +60,8 @@ class Events extends \yii\db\ActiveRecord
             'rstat' => 'สถานะ',
             'forder' => 'เรียงลำดับ',
             'event_type' => 'ประเภทกิจกรรม',
-            'file'=>'ภาพขนาดเล็ก'
+            'file'=>'ภาพขนาดเล็ก',
+            'time_start'=>'เวลา'
         ];
     }
 }

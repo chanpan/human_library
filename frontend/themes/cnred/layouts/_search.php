@@ -1,7 +1,7 @@
 <form id="form-search-term">
     <div class="search-by-category">
         <div class="search-inner">
-            <input type="text" placeholder="ค้นหากิจกรรม" id="text-search-term"/>
+            <input type="text" placeholder="ค้นหากิจกรรมการบรรยาย" id="text-search-term"/>
             <button type="submit">
                 <i class="fa fa-search"></i>
             </button>

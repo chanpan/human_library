@@ -3,12 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\RegisterForm */
-/* @var $form yii\widgets\ActiveForm */
-//\appxq\sdii\utils\VarDumper::dump($status);
 ?>
-<h3 class="text-center">ลงทะเบียนเข้าร่วมกิจกรรม</h3>
+<h3 class="text-center">ลงทะเบียนเข้าร่วมกิจกรรมการบรรยาย</h3>
 <?php if($status):?>
 <div class="col-md-6 col-md-offset-3">
     <h3>สถานะ: ลงทะเบียนแล้ว</h3>
@@ -21,7 +17,10 @@ use yii\widgets\ActiveForm;
 </div>
 <?php else:?>
 <div class="col-md-6 col-md-offset-3">
-    <a href="<?= yii\helpers\Url::to(['/site/event-detail?id='.$model->event_id])?>"><< ย้อนกลับ</a>
+    <a href="<?= yii\helpers\Url::to(['/site/event-detail?id='.$model->event_id])?>" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i> </i> ย้อนกลับ</a>
+
+
+
     <div class="register-form-form">
 
     <?php $form = ActiveForm::begin(); ?>

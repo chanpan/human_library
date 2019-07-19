@@ -31,18 +31,20 @@ class SiteController extends Controller
         $this->save_view_count();
         
         
-        $event = \backend\models\Events::find()->limit(10)->all(); 
+        $event = \backend\models\Events::find()->limit(50)->all(); 
         $news = \backend\models\Advertisement::find()->orderBy(['id'=>SORT_DESC])->limit(4)->all();
+        $news2 = \backend\models\Advertisement::find()->orderBy(['id'=>SORT_DESC])->limit(50)->all();
         
         return $this->render('index', [
             'model'=>$model,
             'event'=>$event,
-            'news'=>$news
+            'news'=>$news,
+            'news2'=>$news2
         ]);
     }
 public function actionView(){
     $id = Yii::$app->request->get('id', '');
-    
+     
     $model = \backend\models\Book::findOne($id);
     return $this->render('view',['model'=>$model]);
 }
@@ -229,6 +231,7 @@ public function actionEventDetail(){
                \Yii::$app->session->setFlash('success', 'ลงทะเบียนสำเร็จ'); 
             }
         }
+         
         return $this->render('register-form', [
             'model' => $model,
             'user_id'=>$user_id,

@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\EventsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'กิจกรรม';
+$this->title = 'กิจกรรมการบรรยาย';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="events-index">

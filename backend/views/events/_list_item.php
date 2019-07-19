@@ -30,7 +30,7 @@ $user_id = \backend\classes\CNUser::get_user_id();
                     </span>
                 </div>
                 <br/>
-                <div><?= isset($model->detail) ? $model->detail : '' ?></div>
+                
             </div>    
         </div> 
         <div class="col-md-12">

@@ -22,8 +22,27 @@ use dosamigos\ckeditor\CKEditor;
                     ]
                 ]) ?>
             <?= $form->field($model, 'event_type')->hiddenInput()->label(FALSE); ?>
-            <?= $form->field($model, 'forder')->textInput() ?>
-        
+            
+        <div class="row">
+            <div class="col-md-4"><?= $form->field($model, 'forder')->textInput() ?></div>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'create_date')->widget(\yii\jui\DatePicker::class, [
+                        'language' => 'th',
+                        'dateFormat' => 'yyyy-MM-dd',
+                        'options'=>['class'=>'form-control']
+                    ]) ?>
+                    
+                </div>
+                <div class="col-md-4"><?= $form->field($model, 'time_start')
+                        ->widget(\kartik\time\TimePicker::classname(), [
+                            'pluginOptions' => [
+                                'showSeconds' => true,
+                                'showMeridian' => false,
+                                'minuteStep' => 1,
+                                'secondStep' => 5,
+                            ]
+                        ]);?></div>
+            </div> 
             <?php 
                 //echo $model->file;
                 if($model->file){
@@ -32,6 +51,9 @@ use dosamigos\ckeditor\CKEditor;
                 }
             ?>
             <?= $form->field($model, 'file')->fileInput() ?>
+
+
+
             <div class="form-group text-center">
                 <?= Html::a("ยกเลิก", ['/events'], ['class'=>'btn btn-danger'])?>
                 <?= Html::submitButton("บันทึก", ['class' => 'btn btn-success']) ?>

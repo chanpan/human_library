@@ -1,5 +1,6 @@
 <?php 
     use yii\helpers\Html;
+//    \kartik\file\FileInputAsset::register($this);
     kartik\file\FileInputAsset::register($this);
 ?>
 <div class="modal-body">

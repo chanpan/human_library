@@ -39,12 +39,12 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         
-        ['label' => 'หน้าหลัก', 'url' => ['/site/index']],
+        ['label' => '<i class="glyphicon glyphicon-home"></i> หน้าหลัก', 'url' => ['/site/index']],
         ['label' => 'ผู้ใช้', 'url' => ['/user/index']],
         ['label' => 'ข่าวประกาศ', 'url' => ['/advertisement/index']],
-        ['label' => 'การบรรยาย', 'url' => ['/book/index']],
         ['label' => 'ภาพสไลด์', 'url' => ['/banners/index']],
-        ['label' => 'ภาพ/วีดีโอกิจกรรม', 'url' => ['/events/index']],
+        ['label' => 'จัดการกิจกรรมการบรรยาย', 'url' => ['/events/index']],
+        
         [
             'label' => 'ข้อมูลทั่วไป',
             'items' => [
@@ -69,6 +69,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'encodeLabels'=>false
     ]);
     NavBar::end();
     ?>

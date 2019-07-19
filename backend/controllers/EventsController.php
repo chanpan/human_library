@@ -72,7 +72,7 @@ class EventsController extends Controller {
             $model->rstat = 1;
             $model->create_at = \backend\classes\CNUser::get_user_id();
             $model->update_at = \backend\classes\CNUser::get_user_id();;
-            $model->create_date = date('Y-m-d H:i:s');
+            //$model->create_date = date('Y-m-d H:i:s');
             $path = \Yii::getAlias('@storage') . '/web/files';
             $new_file_name = time() . '.' . $file->extension;
             $file->saveAs("{$path}/{$new_file_name}");
@@ -104,7 +104,7 @@ class EventsController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             $file = \yii\web\UploadedFile::getInstance($model, 'file');
             
-            $model->id = time();
+            //$model->id = time();
             $model->rstat = 1;
             $model->update_at = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
             $model->update_date = date('Y-m-d H:i:s');

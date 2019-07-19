@@ -7,7 +7,7 @@ $user_id = \backend\classes\CNUser::get_user_id();
 ?>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <h3>กิจกรรม</h3> <hr/>
+        <h3>กิจกรรมการบรรยาย</h3> <hr/>
         <?php foreach ($model as $k => $v): ?>
             <div class="row" style="margin-top:10px;">
                 <a href="<?= Url::to(["/site/event-detail?id={$v->id}"]) ?>" style="color:#000;">
